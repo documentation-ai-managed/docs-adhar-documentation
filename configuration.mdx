@@ -1,0 +1,155 @@
+---
+title: Customizing Adhar Settings
+description: Configure your documentation space to fit your project's needs, including branding and integrations.
+---
+
+## Overview
+
+Tailor Adhar Documentation to match your project's identity and workflow. Customize themes with your brand colors, set up integrations for seamless collaboration, and manage exports or imports to sync settings across environments. Start with the configuration panel in your dashboard to apply these changes.
+
+<Columns cols={3}>
+  <Card title="Themes" icon="palette" href="#custom-themes">
+    Apply custom colors and styles.
+  </Card>
+  <Card title="Integrations" icon="plug" href="#integrations">
+    Connect external services.
+  </Card>
+  <Card title="Export/Import" icon="upload" href="#export-import">
+    Backup and restore configurations.
+  </Card>
+</Columns>
+
+## Custom Themes and Brand Colors
+
+Define your documentation's appearance using CSS custom properties. Set your primary brand color to `#3B82F6` for a professional blue accent, then extend to other elements like buttons and headers.
+
+<Steps>
+  <Step title="Access Theme Editor" icon="settings">
+    Navigate to **Settings {arrow-right} Themes** in the sidebar.
+  </Step>
+  <Step title="Update Brand Color" icon="palette">
+    Enter your hex code, such as `#3B82F6`, in the **Primary Color** field.
+  </Step>
+  <Step title="Preview and Save" icon="eye">
+    Preview changes live, then click **Apply Theme**.
+  </Step>
+</Steps>
+
+Customize further with a `theme.css` file in your project root:
+
+<CodeGroup tabs="CSS,SCSS">
+  ```css
+:root {
+  --primary-color: #3B82F6;
+  --secondary-color: #1E40AF;
+  --text-color: #1F2937;
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: white;
+}
+  ```
+  ```scss
+:root {
+  $primary: #3B82F6;
+  $secondary: #1E40AF;
+
+  --primary-color: #{$primary};
+  --secondary-color: #{$secondary};
+  --text-color: #1F2937;
+
+  .button {
+    background-color: var(--primary-color);
+    color: white;
+  }
+}
+  ```
+</CodeGroup>
+
+<Callout kind="tip">
+  Test your theme across light and dark modes by toggling the preview switch.
+</Callout>
+
+## Integration Options
+
+Connect Adhar to your tools for analytics, notifications, and version control. Choose from popular services and configure API keys securely.
+
+<Tabs>
+  <Tab title="GitHub" icon="github">
+    Sync documentation with your repository.
+
+    <ParamField header="Authorization" param-type="string" required="true">
+      Personal access token with `repo` scope.
+    </ParamField>
+
+    ```bash
+    # Add webhook for auto-deploys
+    curl -X POST https://api.github.com/repos/your-org/adhar-docs/hooks \
+      -H "Authorization: token YOUR_GITHUB_TOKEN" \
+      -d '{"url": "https://your-adhar-instance.com/webhook"}'
+    ```
+  </Tab>
+  <Tab title="Analytics" icon="bar-chart">
+    Track page views with Google Analytics or similar.
+
+    ```javascript
+    // Add to custom head script
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YOUR_MEASUREMENT_ID');
+    ```
+  </Tab>
+  <Tab title="Notifications" icon="bell">
+    Receive updates via Slack or email.
+  </Tab>
+</Tabs>
+
+## Export and Import Settings
+
+Backup your configurations as JSON files for easy migration or team sharing.
+
+### Quick Export Steps
+
+<Steps>
+  <Step title="Export Config" icon="download">
+    Go to **Settings {arrow-right} Export** and select **Full Config**.
+  </Step>
+  <Step title="Download File" icon="save">
+    Download `adhar-config.json`.
+  </Step>
+  <Step title="Import to New Space" icon="upload">
+    In the new instance, upload the file via **Import**.
+  </Step>
+</Steps>
+
+<Expandable title="Advanced Import Options" default-open="false">
+
+Handle merges and overrides carefully:
+
+| Option          | Description                          | Default |
+|-----------------|--------------------------------------|---------|
+| Merge Themes    | Preserve existing colors             | true   |
+| Overwrite Integrations | Replace all connections             | false  |
+| Validate Keys   | Check API keys before applying       | true   |
+
+```json
+{
+  "theme": {
+    "primaryColor": "#3B82F6"
+  },
+  "integrations": {
+    "github": {
+      "repo": "your-org/adhar-docs",
+      "webhookEnabled": true
+    }
+  }
+}
+```
+
+</Expandable>
+
+<Callout kind="alert">
+  Always validate imported API keys to avoid security risks. Use placeholders like `YOUR_API_KEY` in shared files.
+</Callout>

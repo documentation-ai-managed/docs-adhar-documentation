@@ -1,0 +1,158 @@
+---
+title: Changelog
+description: Track the latest updates, features, and improvements in Adhar Documentation.
+---
+
+## Recent Releases
+
+Stay current with Adhar Documentation by reviewing these release notes. You receive new features, bug fixes, and performance enhancements regularly. Check this page after each update to learn what changed and how to upgrade.
+
+<Columns cols={3}>
+  <Card title="Latest" icon="zap" href="#v2-0-0">
+    v2.0.0 - Major component upgrades
+  </Card>
+  <Card title="Previous" icon="package" href="#v1-5-0">
+    v1.5.0 - Stability improvements
+  </Card>
+  <Card title="Initial" icon="git-branch" href="#v1-4-0">
+    v1.4.0 - Documentation enhancements
+  </Card>
+</Columns>
+
+<Callout kind="info">
+  Subscribe to our RSS feed or GitHub notifications to get alerts for new releases.
+</Callout>
+
+<Update label="2024-11-15" description="v2.0.0" tags={["feature", "breaking"]}>
+
+## Breaking Changes
+
+- Updated MDX parsing engine - Review your custom components for compatibility.
+
+## New Features
+
+- Added `<Video>` and `<Iframe>` components for rich media embeds.
+- Introduced `<Columns>` with up to 5 flexible grid options.
+- Enhanced `<ParamField>` with `deprecated` attribute support.
+
+## Improvements
+
+- Faster build times by 40% with optimized JSX escaping.
+- Better error messages for common parsing issues like unescaped `{` characters.
+
+## Bug Fixes
+
+- Fixed nested code block rendering with 4-backtick support.
+- Resolved heading hierarchy warnings in validation.
+
+</Update>
+
+<Update label="2024-10-20" description="v1.5.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- New `<Request>` and `<Response>` components for API documentation.
+- `<CodeGroup>` now supports `default-tab` attribute.
+
+## Improvements
+
+- Mermaid diagrams render more reliably with simple syntax enforcement.
+- Icon library expanded with 100+ Lucide icons.
+
+## Bug Fixes
+
+- Corrected attribute quoting - enforces double quotes only.
+- Fixed self-closing component detection.
+
+</Update>
+
+<Update label="2024-09-15" description="v1.4.0" tags={["improvement", "bugfix"]}>
+
+## New Features
+
+- `<Steps>` and `<Tabs>` components for guided tutorials.
+- `<ExpandableGroup>` for collapsible FAQs.
+
+## Improvements
+
+- Frontmatter validation prevents blank line parsing errors.
+- Component checklist integrated into docs generation.
+
+## Bug Fixes
+
+- Escaped special characters (`<`, `>`, `{`, `}`) in prose.
+- No more H1 headings in body content.
+
+</Update>
+
+## Upgrade Guide
+
+Follow these steps to update your Adhar Documentation site. Test in a staging environment first.
+
+<Steps>
+  <Step title="Backup" icon="database">
+    Save your current `docs/` directory.
+  </Step>
+  <Step title="Update Package" icon="package">
+    Run the upgrade command for your platform.
+    
+    <Tabs>
+      <Tab title="npm" icon="package">
+        ```bash
+        npm install adhar-docs@latest
+        ```
+      </Tab>
+      <Tab title="yarn" icon="package">
+        ```yarn
+        yarn add adhar-docs@latest
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Rebuild" icon="hammer">
+    ```bash
+    npm run build
+    ```
+    
+    Verify no parsing errors in the console.
+  </Step>
+  <Step title="Deploy" icon="upload-cloud">
+    Push changes to your hosting provider.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="JavaScript,TypeScript">
+  ```javascript
+  // Example: New Video component usage
+  import { Video } from 'adhar-docs/components';
+  
+  <Video src="https://example.com/video.mp4" title="Demo" width="800" height="450" />
+  ```
+  ```typescript
+  // TypeScript support with props validation
+  interface VideoProps {
+    src: string;
+    title: string;
+    width: number;
+    height: number;
+  }
+  
+  const MyVideo: React.FC<VideoProps> = ({ src, title, width, height }) => (
+    <Video src={src} title={title} width={width} height={height} />
+  );
+  ```
+</CodeGroup>
+
+## Upcoming Features
+
+<Expandable title="Roadmap Preview" default-open="false">
+
+You can expect these enhancements soon:
+
+- Native support for dark mode toggles.
+- AI-assisted MDX validation tool.
+- Advanced search across documentation pages.
+
+Follow our GitHub repository for progress updates.
+
+</Expandable>
